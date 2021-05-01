@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Docker build') {
             steps {
-                sh 'sudo docker build -t meghags17/simple_java .'
+                sh 'docker build -t meghags17/simple_java .'
+                sh 'docker run -it -p 9000:8000 -d meghags17/simple_java'
             }
         }
         stage('Test') {
