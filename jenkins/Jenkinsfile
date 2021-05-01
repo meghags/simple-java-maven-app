@@ -12,6 +12,10 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar' , fingerprint: true , followSymlinks: false , onlyIfSuccessful: true
             }
         }
+        stage('Docker build') {
+            steps {
+                sh 'sudo docker build -t meghags17/simple_java .'
+            }
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -26,6 +30,7 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
+             
         }
     }
 }
