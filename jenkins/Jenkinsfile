@@ -14,13 +14,7 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar' , fingerprint: true , followSymlinks: false , onlyIfSuccessful: true
             }
         }
-        stage('Docker build') {
-            steps {
-                sh 'docker build -t meghags17/simple_java .'
-                sh 'docker run -it -p 9000:8000 -d meghags17/simple_java'
-            }
-        }
-        stage('Test') {
+		stage('Test') {
             steps {
                 sh 'mvn test'
             }
@@ -36,5 +30,12 @@ pipeline {
             }
              
         }
+        stage('Docker build') {
+            steps {
+                sh 'docker build -t meghags17/simple_java .'
+                sh 'docker run -it -p 9000:8000 -d meghags17/simple_java'
+            }
+        }
+        
     }
 }
